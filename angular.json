@@ -27,7 +27,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/animate.css/animate.min.css"
             ],
             "scripts": []
           },
@@ -127,6 +129,41 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "NgxMcAnimator": {
+      "root": "projects/ngx-mc-animator",
+      "sourceRoot": "projects/ngx-mc-animator/src",
+      "projectType": "library",
+      "prefix": "NgxMcAnimator",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ngx-mc-animator/tsconfig.lib.json",
+            "project": "projects/ngx-mc-animator/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-mc-animator/src/test.ts",
+            "tsConfig": "projects/ngx-mc-animator/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-mc-animator/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ngx-mc-animator/tsconfig.lib.json",
+              "projects/ngx-mc-animator/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]

@@ -1,27 +1,59 @@
-# Animator
+# MC ANIMATOR
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.3.
 
-## Development server
+### Install
+![Alt Text](https://media.giphy.com/media/NSqObfbprDMUjLimAg/giphy.gif)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```
+npm install ngx-mc-animate;
+```
+Also make sure that you have `animate.css` installed
 
-## Code scaffolding
+```
+npm install animate.css
+// include this in your angular.json file
+"./node_modules/animate.css/animate.min.css"
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Setup
+```
+// We need to use ElementRef and Renderer2 also to modify the DOM
+constructor(public animatorService: NgxMcAnimatorService,
+    public elRef: ElementRef,
+    public renderer: Renderer2)
+```      
 
-## Build
+### Usage
+Function Signature
+```
+animate(effects: string | string[] = 'fadeOutUp',
+    selectors: string | string[] = 'animate-seq',
+    delays: number | number[] = 1000,
+    initial_delay: number = 0,
+    reset = false // reset animation classes once complete?
+)
+```
+![Alt Text](https://media.giphy.com/media/YUab2Mca0qbH8OtbLD/giphy.gif)
+### Using class prefixes
+This is useful when you want a set of classes to behave the same way
+```        
+// Add class names with a common prefix (e.g. animate-seq) to
+// all the elements you want to animate. Class with prefix animate-seq-1
+// would be animated before animate-seq-2. If class name is same, then the
+// animate order would be random
+this.animatorService.animator(this.elRef, this.renderer).animate('bounce',
+    'animate-seq-', 500, 0, true
+).subscribe(() => {})
+```     
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+![Alt Text](https://media.giphy.com/media/3j0YkJIS4jlLQslJRA/giphy.gif)
+### Using CSS Selectors
+This is useful when you want to take different actions on different classes.
+```
+// Provide css selectors and effect names
+this.animatorService.animator(this.elRef, this.renderer)
+    .animate(['fadeOutDown', 'fadeOutUp'], ['.class1', '.class2'])
+    .subscribe(() => {});
+```
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Issues / Suggestions: https://github.com/mc-lovin/Mc-animator or ashu1461@gmail.com
