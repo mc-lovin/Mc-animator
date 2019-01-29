@@ -52,6 +52,11 @@ export class Animator {
           numeric: true
         })
       })
+
+      if (typeof (effects) == 'string') {
+        effects = Array(selectors.length).fill(effects);
+      }
+
     } else {
 
       if (typeof(effects) == 'string') {
@@ -83,8 +88,6 @@ export class Animator {
       delays = Array(nodes.length).fill(delays)
       delays[0] = initial_delay
     }
-
-
 
     return new Observable((observer) => {
       let iter = 0;
